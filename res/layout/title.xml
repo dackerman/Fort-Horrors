@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<AbsoluteLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<com.ackermansoftware.dackdroid.core.EngineSurfaceView
+		android:id="@+id/game_view"
+		android:layout_width="fill_parent"
+		android:layout_height="fill_parent" />
+
+	<TextView android:layout_width="wrap_content"
+		android:id="@+id/fps"
+		android:layout_height="wrap_content"
+		android:text="FPS"
+		android:textColor="#FFFFFF"
+		android:layout_x="0dip"
+		android:layout_y="20dip"/>
+
+
+	<TextView android:layout_width="wrap_content"
+		android:textColor="#FFFFFF"
+		android:layout_height="wrap_content"
+		android:text="STATUS"
+		android:id="@+id/status"></TextView>
+</AbsoluteLayout>

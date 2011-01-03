@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, FortHorrorsMain!</string>
+    <string name="title">Welcome to Fort Horrors!</string>
     <string name="app_name">Fort Horrors!</string>
 </resources>

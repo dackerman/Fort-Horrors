@@ -30,4 +30,16 @@
 		<nature>com.android.ide.eclipse.adt.AndroidNature</nature>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>DackdroidGameEngine_src</name>
+			<type>2</type>
+			<locationURI>_android_DackdroidGameEngine_84abd00b/src</locationURI>
+		</link>
+		<link>
+			<name>DackdroidGameEngine_test</name>
+			<type>2</type>
+			<locationURI>_android_DackdroidGameEngine_84abd00b/test</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
