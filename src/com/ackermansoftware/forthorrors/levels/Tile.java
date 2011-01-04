@@ -1,4 +1,4 @@
-package com.ackermansoftware.forthorrors;
+package com.ackermansoftware.forthorrors.levels;
 
 import android.graphics.Point;
 import android.graphics.PointF;

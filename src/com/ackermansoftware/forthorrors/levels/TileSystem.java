@@ -1,4 +1,4 @@
-package com.ackermansoftware.forthorrors;
+package com.ackermansoftware.forthorrors.levels;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -16,7 +16,10 @@ public class TileSystem extends GameObject {
 	public static final int maxCols = 100;
 	public static final int maxRows = 100;
 
-	private static final int[] assets = new int[] { R.drawable.tile_grass, R.drawable.tile_metal };
+	private static final int[] assets = new int[] { R.drawable.tile_grass, R.drawable.tile_metal,
+		R.drawable.tile_metal_topleft, R.drawable.tile_metal_topright,
+		R.drawable.tile_metal_bottomright, R.drawable.tile_metal_bottomleft,
+		R.drawable.tile_metal_wall };
 	private static final Bitmap[] assetCache = new Bitmap[assets.length];
 
 	private final int[][] tiles = new int[maxCols][maxRows];
@@ -56,11 +59,6 @@ public class TileSystem extends GameObject {
 
 		@Override
 		public void render(TextureLibrary textures, Canvas c) {
-			// Load up textures for fast drawing
-			for (int i = 0; i < assets.length; i++) {
-				assetCache[i] = textures.getTexture(assets[i]);
-			}
-
 			// Clamp all tile values to numbers within the array's range. That
 			// way, we don't have to do a bunch of checks in the for loops.
 			Rect b = c.getClipBounds();
@@ -74,6 +72,9 @@ public class TileSystem extends GameObject {
 				for (int y = tileTop; y < tileBottom; y++) {
 					if (tiles[x][y] != -1) {
 						tileBmp = assetCache[tiles[x][y]];
+						if (tiles[x][y] == 6) {
+							c.drawBitmap(assetCache[1], x * tileScale, y * tileScale, null);
+						}
 						c.drawBitmap(tileBmp, x * tileScale, y * tileScale, null);
 					}
 				}
@@ -83,6 +84,13 @@ public class TileSystem extends GameObject {
 
 		private int clamp(int value, int min, int max) {
 			return Math.max(Math.min(value, max), min);
+		}
+
+		@Override
+		public void beforeRender(TextureLibrary textures) {
+			for (int i = 0; i < assets.length; i++) {
+				assetCache[i] = textures.getTexture(assets[i]);
+			}
 		}
 	}
 

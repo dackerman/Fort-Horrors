@@ -1,4 +1,4 @@
-package com.ackermansoftware.forthorrors;
+package com.ackermansoftware.forthorrors.levels;
 
 import java.io.IOException;
 import java.io.InputStream;

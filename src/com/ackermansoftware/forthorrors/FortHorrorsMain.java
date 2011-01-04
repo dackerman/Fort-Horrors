@@ -12,6 +12,9 @@ import com.ackermansoftware.dackdroid.core.GameEngine;
 import com.ackermansoftware.dackdroid.core.GameEngineSettings;
 import com.ackermansoftware.dackdroid.core.GameSystem;
 import com.ackermansoftware.dackdroid.core.World;
+import com.ackermansoftware.dackdroid.gameobjects.GameObject;
+import com.ackermansoftware.forthorrors.gameobjects.Birdie;
+import com.ackermansoftware.forthorrors.levels.LevelFactory;
 
 public class FortHorrorsMain extends Activity {
 
@@ -39,14 +42,15 @@ public class FortHorrorsMain extends Activity {
 		// Add game view to screen.
 		EngineSurfaceView gameView = (EngineSurfaceView) findViewById(R.id.game_view);
 		GameEngineSettings settings = new GameEngineSettings();
-		settings.rendererMaximumFps = 60;
-		settings.gameLogicMaximumFps = 60;
+		settings.rendererMaximumFps = 20;
+		settings.gameLogicMaximumFps = 20;
 		gameView.init(settings);
 
 		GameSystem system = gameView.getGameSystem();
 
 		// Get camera and world objects for use later.
 		camera = system.getCameraSystem();
+		camera.setCameraPosition(new PointF(150f, 50f));
 		world = system.getWorld();
 
 
@@ -62,6 +66,18 @@ public class FortHorrorsMain extends Activity {
 		// Initialize world with level
 		LevelFactory level = new LevelFactory(getResources());
 		level.create(R.raw.level_1, world);
+
+		createBirdies();
+	}
+
+	private void createBirdies() {
+		for (int i = 0; i < 10; i++) {
+			for (int j = 0; j < 10; j++) {
+				GameObject b = new Birdie(200f + (float) Math.random() * 50f * i, 200f
+						+ (float) Math.random() * 50f * j);
+				world.addGameObject(b);
+			}
+		}
 	}
 
 	@Override
@@ -85,10 +101,6 @@ public class FortHorrorsMain extends Activity {
 	}
 
 	private void tapped(MotionEvent event) {
-		// Tile tile = new Tile(new Point(numTiles % 5, 1 + numTiles / 5));
-		// world.addGameObject(tile);
-		// numTiles++;
-
 		oldCam = camera.getCameraPosition();
 		oldTouch.x = event.getX();
 		oldTouch.y = event.getY();
@@ -97,8 +109,8 @@ public class FortHorrorsMain extends Activity {
 
 	private boolean moving(MotionEvent event) {
 		if (movingCamera) {
-			float newX = oldCam.x + event.getX() - oldTouch.x;
-			float newY = oldCam.y + event.getY() - oldTouch.y;
+			float newX = oldCam.x - (event.getX() - oldTouch.x);
+			float newY = oldCam.y - (event.getY() - oldTouch.y);
 			PointF newCameraPosition = new PointF(newX, newY);
 			camera.setCameraPosition(newCameraPosition);
 			statusText.setText(String.format("Camera: %.2f, %.2f", newCameraPosition.x,
