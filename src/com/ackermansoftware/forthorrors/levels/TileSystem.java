@@ -24,8 +24,12 @@ public class TileSystem extends GameObject {
 
 	private final int[][] tiles = new int[maxCols][maxRows];
 
-	public TileSystem() {
+	public TileSystem(TextureLibrary textures) {
 		init();
+		// Fill in bitmaps
+		for(int i=0;i<assets.length;i++) {
+			assetCache[i] = textures.getTexture(assets[i]);
+		}
 	}
 
 	private void init() {
@@ -58,7 +62,7 @@ public class TileSystem extends GameObject {
 		}
 
 		@Override
-		public void render(TextureLibrary textures, Canvas c) {
+		public void render(Canvas c) {
 			// Clamp all tile values to numbers within the array's range. That
 			// way, we don't have to do a bunch of checks in the for loops.
 			Rect b = c.getClipBounds();
@@ -86,12 +90,6 @@ public class TileSystem extends GameObject {
 			return Math.max(Math.min(value, max), min);
 		}
 
-		@Override
-		public void beforeRender(TextureLibrary textures) {
-			for (int i = 0; i < assets.length; i++) {
-				assetCache[i] = textures.getTexture(assets[i]);
-			}
-		}
 	}
 
 }

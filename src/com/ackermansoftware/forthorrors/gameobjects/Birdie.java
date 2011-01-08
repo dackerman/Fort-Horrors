@@ -1,5 +1,6 @@
 package com.ackermansoftware.forthorrors.gameobjects;
 
+import android.graphics.Bitmap;
 import android.graphics.PointF;
 import android.util.Log;
 
@@ -8,6 +9,7 @@ import com.ackermansoftware.dackdroid.core.AnimationSequence;
 import com.ackermansoftware.dackdroid.gameobjects.GameObject;
 import com.ackermansoftware.dackdroid.gameobjects.Material;
 import com.ackermansoftware.dackdroid.renderer.RenderQueue;
+import com.ackermansoftware.dackdroid.renderer.TextureLibrary;
 import com.ackermansoftware.forthorrors.R;
 
 public class Birdie extends GameObject {
@@ -32,14 +34,21 @@ public class Birdie extends GameObject {
 
 	State state = State.IDLE;
 
-	public Birdie(float x, float y) {
+	public Birdie(float x, float y, TextureLibrary textures) {
 		pos = new PointF(x, y);
-		setUpAnimations();
+		setUpAnimations(textures);
 	}
 
-	private void setUpAnimations() {
-		flyAnimation.addFrame(new AnimationFrame(R.drawable.flying_bird1, 300));
-		flyAnimation.addFrame(new AnimationFrame(R.drawable.flying_bird2, 300));
+	private void setUpAnimations(TextureLibrary textures) {
+		Bitmap b = textures.getTexture(R.drawable.standing_bird);
+		flyAnimation.addFrame(new AnimationFrame(b, 0));
+
+		b = textures.getTexture(R.drawable.flying_bird1);
+		flyAnimation.addFrame(new AnimationFrame(b, 300));
+
+		b = textures.getTexture(R.drawable.flying_bird2);
+		flyAnimation.addFrame(new AnimationFrame(b, 300));
+
 		flyAnimation.looping = true;
 	}
 
@@ -117,14 +126,9 @@ public class Birdie extends GameObject {
 
 	@Override
 	public void render(RenderQueue renderQueue) {
-		Material m;
-		if (state == State.FLYING) {
-			AnimationFrame currentFrame = flyAnimation.getFrame();
-			m = new Material(currentFrame.drawable);
-			m.setRotation(rotation);
-		} else {
-			m = new Material(R.drawable.standing_bird);
-		}
+		AnimationFrame currentFrame = flyAnimation.getFrame();
+		Material m = new Material(currentFrame.drawable);
+		m.setRotation(rotation);
 		m.setNewPosition(pos);
 		renderQueue.addToQueue(m);
 	}

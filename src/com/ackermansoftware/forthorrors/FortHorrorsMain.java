@@ -13,6 +13,7 @@ import com.ackermansoftware.dackdroid.core.GameEngineSettings;
 import com.ackermansoftware.dackdroid.core.GameSystem;
 import com.ackermansoftware.dackdroid.core.World;
 import com.ackermansoftware.dackdroid.gameobjects.GameObject;
+import com.ackermansoftware.dackdroid.renderer.TextureLibrary;
 import com.ackermansoftware.forthorrors.gameobjects.Birdie;
 import com.ackermansoftware.forthorrors.levels.LevelFactory;
 
@@ -21,6 +22,7 @@ public class FortHorrorsMain extends Activity {
 	private GameEngine gameEngine;
 	private CameraSystem camera;
 	private World world;
+	private TextureLibrary textures;
 
 	private PointF oldCam = new PointF();
 	private final PointF oldTouch = new PointF();
@@ -52,7 +54,7 @@ public class FortHorrorsMain extends Activity {
 		camera = system.getCameraSystem();
 		camera.setCameraPosition(new PointF(150f, 50f));
 		world = system.getWorld();
-
+		textures = system.getTextureLibrary();
 
 		// Get Status Text
 		statusText = (TextView) findViewById(R.id.status);
@@ -64,7 +66,7 @@ public class FortHorrorsMain extends Activity {
 		fps = (TextView) findViewById(R.id.fps);
 
 		// Initialize world with level
-		LevelFactory level = new LevelFactory(getResources());
+		LevelFactory level = system.getLevelFactory();
 		level.create(R.raw.level_1, world);
 
 		createBirdies();
@@ -74,7 +76,7 @@ public class FortHorrorsMain extends Activity {
 		for (int i = 0; i < 10; i++) {
 			for (int j = 0; j < 10; j++) {
 				GameObject b = new Birdie(200f + (float) Math.random() * 50f * i, 200f
-						+ (float) Math.random() * 50f * j);
+						+ (float) Math.random() * 50f * j, textures);
 				world.addGameObject(b);
 			}
 		}

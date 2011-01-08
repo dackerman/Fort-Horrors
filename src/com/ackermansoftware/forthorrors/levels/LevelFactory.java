@@ -10,9 +10,11 @@ import com.ackermansoftware.dackdroid.core.World;
 
 public class LevelFactory {
 	private final Resources res;
+	private final TileSystem tiles;
 
-	public LevelFactory(Resources res) {
+	public LevelFactory(Resources res, TileSystem tiles) {
 		this.res = res;
+		this.tiles = tiles;
 	}
 
 	/**
@@ -29,7 +31,6 @@ public class LevelFactory {
 		Log.i("LevelFactory", String.format("Processed %s bytes of data.", levelString.length()));
 		String[] rows = levelString.split("\n");
 
-		TileSystem tiles = new TileSystem();
 		for (int y = 0; y < rows.length; y++) {
 			for (int x = 0; x < rows[y].length(); x++) {
 				String c = rows[y].substring(x, x + 1);
