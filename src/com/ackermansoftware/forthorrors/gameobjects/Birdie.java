@@ -74,13 +74,13 @@ public class Birdie extends GameObject {
 	}
 
 	/**
-	 * If we are idle, randomly pick flying to waiting. Then, randomly pick a
+	 * If we are idle, randomly pick flying or waiting. Then, randomly pick a
 	 * location to fly to and how fast to go.
 	 */
 	private void idle() {
 		flyAnimation.resetAnimation();
-		double decision = Math.random() * 2;
-		if (decision > 1) {
+		double decision = Math.random();
+		if (decision > 0.5) {
 			state = State.FLYING;
 			newPos.x = (float) (pos.x + MAX_FLIGHT_DIST * Math.random() - MAX_FLIGHT_DIST / 2);
 			newPos.y = (float) (pos.y + MAX_FLIGHT_DIST * Math.random() - MAX_FLIGHT_DIST / 2);

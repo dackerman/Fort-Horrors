@@ -16,6 +16,7 @@ import com.ackermansoftware.dackdroid.gameobjects.GameObject;
 import com.ackermansoftware.dackdroid.renderer.TextureLibrary;
 import com.ackermansoftware.forthorrors.gameobjects.Birdie;
 import com.ackermansoftware.forthorrors.levels.LevelFactory;
+import com.ackermansoftware.forthorrors.levels.TileSystem;
 
 public class FortHorrorsMain extends Activity {
 
@@ -66,7 +67,8 @@ public class FortHorrorsMain extends Activity {
 		fps = (TextView) findViewById(R.id.fps);
 
 		// Initialize world with level
-		LevelFactory level = system.getLevelFactory();
+		TileSystem tileSystem = new TileSystem(textures);
+		LevelFactory level = new LevelFactory(getResources(), tileSystem);
 		level.create(R.raw.level_1, world);
 
 		createBirdies();
